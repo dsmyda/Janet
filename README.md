@@ -17,7 +17,7 @@ Request Body
 {
   name: string, // must be unique 
   filters?: {
-    schema?: string // defaults to public
+    schemas?: string[] // defaults to ['public']
     includeTables: RegExp[], // defaults to ["/*/"]
     excludeTables: RegExp[], // defaults to [] 
   }
