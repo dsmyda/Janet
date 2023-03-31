@@ -42,7 +42,7 @@ Request body
   question: string,
   promptName?: string, // makes a default call to /api/prompt, but doesn't persist the result.
   runQuery?: boolean, // defaults to true 
-  gptParams: Record<string, any> // these values will be passed verbatim to GPT 
+  gptParams?: Record<string, any> // these values will be passed verbatim to GPT 
   
 }
 ```
