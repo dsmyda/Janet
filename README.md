@@ -27,17 +27,20 @@ Request Body
 Example
 
 ```sh
-curl "http://localhost:3000/api/prompt" -D '{ "name": "test-prompt", "connectionURL": "..." }'
+curl "http://localhost:3000/api/prompt" -D '{ "name": "public", "connectionURL": "..." }'
 ```
 
 #### POST /api/answer
+
+Answer a basic analytics question. If a promptName is not passed, then it'll call /api/prompt beforehand. To speed up queries and lower usage costs, it's recommened you create prompts beforehand, and to only include
+the minimal number of required DDLs to answer the question.
 
 Request body
 
 ```typescript
 {
-  prompt: string,
   question: string,
+  promptName?: string, // makes a default call to /api/prompt, but doesn't persist the result.
   runQuery?: boolean, // defaults to true 
   gptParams: Record<string, any> // these values will be passed verbatim to GPT 
   
@@ -47,5 +50,5 @@ Request body
 Example
 
 ```sh
-curl "http://localhost:3000/api/answer" -D '{ "prompt": "public", "question": "How many assignments were created in the last 24 hours for userId 'danny'" }'
+curl "http://localhost:3000/api/answer" -D '{ "promptName": "public", "question": "How many assignments were created in the last 24 hours for userId 'danny'" }'
 ```
