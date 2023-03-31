@@ -32,7 +32,7 @@ curl "http://localhost:3000/api/prompt" -D '{ "name": "public" }'
 
 #### POST /api/answer
 
-Answer a basic analytics question. If a promptName is not passed, then it'll call /api/prompt beforehand. To speed up queries and lower usage costs, it's recommened you create prompts beforehand, and to only include
+Answer a basic analytics question. If a `promptName` is not passed, then it'll call `/api/prompt` beforehand. To speed up queries and lower usage costs, it's recommened you create prompts beforehand, and to only include
 the minimal number of required DDLs to answer the question.
 
 Request body
