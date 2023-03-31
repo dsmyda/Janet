@@ -27,7 +27,7 @@ Request Body
 Example
 
 ```sh
-curl "http://localhost:3000/api/prompt" -D '{ "name": "public", "connectionURL": "..." }'
+curl "http://localhost:3000/api/prompt" -D '{ "name": "public" }'
 ```
 
 #### POST /api/answer
