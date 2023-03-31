@@ -9,7 +9,7 @@ WIP
 
 #### POST /api/prompt 
 
-Create a prompt. Janus will fetch tables matching filters using a read only connection. The prompt will be saved to disk and attached on each request sent to `/api/answer`, if requested.
+Create a prompt. Janus will fetch tables matching filters using a read only connection. The prompt will be saved to disk and used on calls to `/api/answer`, if requested. See `/api/answer` for more details.
 
 Request Body
 
@@ -43,7 +43,6 @@ Request body
   promptName?: string, // makes a default call to /api/prompt, but doesn't persist the result.
   runQuery?: boolean, // defaults to true 
   gptParams?: Record<string, any> // these values will be passed verbatim to GPT 
-  
 }
 ```
 
