@@ -7,8 +7,7 @@ WIP
 
 #### Web Server
 
-Endpoints:
-- POST /api/prompt 
+##### POST /api/prompt 
 
 Request Body
 
@@ -23,11 +22,13 @@ Request Body
 }
 ```
 
+Example
+
 ```sh
 curl "http://localhost:3000/api/prompt" -D '{ "name": "test-prompt", "connectionURL": "...", "filters": { "schema": "...", "includeTables": [], "excludeTables": [] }  }'
 ```
 
-- GET /api/answer
+##### GET /api/answer
 
 Query Params
 
@@ -37,6 +38,8 @@ Query Params
   runQuery: boolean 
 }
 ```
+
+Example
 
 ```sh
 curl "http://localhost:3000/api/answer?prompt=text-prompt&runQuery=true"
