@@ -130,3 +130,5 @@ dist
 .pnp.*
 
 *.js
+node_modules/
+.janet

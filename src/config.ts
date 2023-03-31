@@ -1,3 +1,11 @@
+export type ConnectionInfo = {
+  database: string,
+  host: string,
+  user: string,
+  password: string,
+  port: number
+}
+
 function checkOrFail(variable: any, msg: string) {
   if (!variable) {
     console.error(msg)
@@ -13,16 +21,22 @@ if (env === 'development') {
 }
 
 checkOrFail(process.env.GPT_API_KEY, 'Please set GPT_API_KEY environment variable.')
-checkOrFail(process.env.READ_ONLY_CONNECTION_URI, 'Please set READ_ONLY_CONNECTION_URI environment variable.')
 
-const readOnlyConnection = process.env.READ_ONLY_CONNECTION_URI
+const engine = process.env.DATABASE_ENGINE || 'postgres'
+const database = process.env.DATABASE_NAME || 'postgres'
+const host = process.env.DATABASE_HOST || 'localhost'
+const user = process.env.DATABASE_USER || 'postgres'
+const password = process.env.DATABASE_PASSWORD || 'postgres'
+const port = (process.env.DATABASE_PORT) ? Number(process.env.DATABASE_PORT) : 5432 
+
 const apiKey = process.env.GPT_API_KEY
-const promptStorageDirectory = process.env.PROMPT_STORAGE_DIRECTORY || "~/.janus/prompts"
+const promptStoragePath = process.env.PROMPT_STORAGE_PATH || './.janet/prompts'
 
 const config = {
   apiKey,
-  readOnlyConnection,
-  promptStorageDirectory,
+  engine,
+  info: { database, user, host, password, port },
+  promptStoragePath
 }
 
 export default config
