@@ -4,7 +4,11 @@ import config from '../src/config'
 const app = express()
 
 app.post('/api/prompt', (req, res) => {
-  res.send('Hello word')
+  res.send('Hello, prompt')
+})
+
+app.post('api/answer', (req, res) => {
+  res.end('Hello, answer');
 })
 
 app.listen(3000, () => {
