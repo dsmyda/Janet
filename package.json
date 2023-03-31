@@ -1,0 +1,19 @@
+{
+  "name": "janus",
+  "version": "1.0.0",
+  "description": "GPT + DDL prompts = automated descriptive analytics",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsmyda/Janus.git"
+  },
+  "author": "dsmyda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dsmyda/Janus/issues"
+  },
+  "homepage": "https://github.com/dsmyda/Janus#readme"
+}
