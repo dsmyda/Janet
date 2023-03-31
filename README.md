@@ -9,15 +9,17 @@ WIP
 
 #### POST /api/prompt 
 
+Create a prompt. Janus will fetch tables matching filters using a read only connection. The prompt will be saved to disk and attached on each request sent to `/api/answer`, if requested.
+
 Request Body
 
 ```typescript
 {
   name: string, // must be unique 
-  filters: {
-    schema: string
-    includeTables: RegExp[],
-    excludeTables: RegExp[],
+  filters?: {
+    schema?: string // defaults to public
+    includeTables: RegExp[], // defaults to ["/*/"]
+    excludeTables: RegExp[], // defaults to [] 
   }
 }
 ```
@@ -25,22 +27,25 @@ Request Body
 Example
 
 ```sh
-curl "http://localhost:3000/api/prompt" -D '{ "name": "test-prompt", "connectionURL": "...", "filters": { "schema": "...", "includeTables": [], "excludeTables": [] }  }'
+curl "http://localhost:3000/api/prompt" -D '{ "name": "test-prompt", "connectionURL": "..." }'
 ```
 
-#### GET /api/answer
+#### POST /api/answer
 
-Query Params
+Request body
 
 ```typescript
 {
   prompt: string,
-  runQuery: boolean 
+  question: string,
+  runQuery?: boolean, // defaults to true 
+  gptParams: Record<string, any> // these values will be passed verbatim to GPT 
+  
 }
 ```
 
 Example
 
 ```sh
-curl "http://localhost:3000/api/answer?prompt=text-prompt&runQuery=true"
+curl "http://localhost:3000/api/answer" -D '{ "prompt": "public", "question": "How many assignments were created in the last 24 hours for userId 'danny'" }'
 ```
