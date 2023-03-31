@@ -25,9 +25,8 @@ Request Body
 ```
 
 Example
-
 ```sh
-curl "http://localhost:3000/api/prompt" -D '{ "name": "public" }'
+curl -D '{ "name": "public" }' -X POST http://localhost:3000/api/prompt
 ```
 
 #### POST /api/answer
@@ -49,5 +48,5 @@ Request body
 Example
 
 ```sh
-curl "http://localhost:3000/api/answer" -D '{ "promptName": "public", "question": "How many assignments were created in the last 24 hours for userId 'danny'" }'
+curl -D '{ "promptName": "public", "question": "How many assignments were created in the last 24 hours for userId 'danny'" } -X POST http://localhost:3000/api/answer'
 ```
