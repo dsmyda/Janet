@@ -34,7 +34,7 @@ send actual table data to OpenAI).
 
 ### POST /api/preload 
 
-Load and cache a subset of your database schema beforehand. 
+Load and cache a subset of your database schema. 
 
 Janet will fetch tables matching the filters. The ddl will be saved to disk and can be used when calling `/api/question`. See `/api/question` for more details.
 
