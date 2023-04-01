@@ -70,7 +70,7 @@ curl -X POST -H "Content-Type: application/json" -d "{ \"name\": \"public\" }" h
 
 Ask a basic analytics question, and get back the results. The query Janet used to generate the results will be attached as well, for review and verification.
 
-If a `preloadName` is not passed, then it'll call `/api/preload` beforehand. To lower usage costs and improve accuracy, it's recommended you preload beforehand and only include the smallest subset of tables required to answer the question.
+If a `preloadName` is not passed, then it'll call `/api/preload`. To lower usage costs and improve accuracy, it's recommended you preload and only include the smallest subset of tables required to answer the question.
 
 If OpenAI returns multiple responses (default 3, configurable using the 'openaiParams' field), then the first query that succeeds will be taken.
 
