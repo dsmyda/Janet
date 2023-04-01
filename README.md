@@ -1,5 +1,17 @@
 # Janet
 
+```
+Janet, which customer has the most invoices?
+
+Result:
+{
+  "FirstName": "Alexandre",
+  "LastName": "Rocha",
+  "count": "7"
+}
+
+```
+
 Janet is capable of indexing your database schema, automatically generating SQL queries with the help of OpenAI and then automatically executing those results against your database.
 Only the Table DDL will be shared with OpenAI's API, Janet will never query for or include any row data from your table.
 
