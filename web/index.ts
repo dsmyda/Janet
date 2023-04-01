@@ -1,7 +1,10 @@
 import express from 'express'
 import * as promptApi from '../src/prompt'
-import { send200, send400, send500 } from './utls'
-import { ZodPromptPostBody } from '../src/interfaces'
+import * as answerApi from '../src/openai'
+import { send200, send400, send500 } from './utils'
+import { ZodAnswerPostBody, ZodPromptPostBody } from '../src/interfaces'
+import { runQuery } from '../src/database'
+import config from '../src/config'
 
 const app = express()
 app.use(express.json())
@@ -10,7 +13,7 @@ app.use(function(_, res, next) {
   next()
 })
 
-app.post('/api/prompt', (req, res) => {
+app.post('/api/ddl', (req, res) => {
   const body = req.body
   const parseResult = ZodPromptPostBody.safeParse(body)
   if (!parseResult.success) {
@@ -34,8 +37,29 @@ app.post('/api/prompt', (req, res) => {
     })
   })
 
-app.post('api/answer', (req, res) => {
-  res.end('Hello, answer');
+app.post('/api/answer', (req, res) => {
+  const body = req.body
+  const parseResult = ZodAnswerPostBody.safeParse(body)
+  if (!parseResult.success) {
+    send400(res, parseResult.error)
+    return
+  }
+
+  const safePayload = parseResult.data
+  answerApi.getAnswer(safePayload.question, safePayload.ddlName)
+    .then((query: string) => {
+      runQuery(config.engine, query)
+        .then((results: any) => {
+          send200(res, {
+            results,
+            query
+          })
+        })
+    })
+    .catch((err: Error) => {
+      console.error(err)
+      send500(res)
+    })
 })
 
 app.listen(3000, () => {

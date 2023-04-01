@@ -9,9 +9,9 @@ WIP
 
 ### Web Server
 
-#### POST /api/prompt 
+#### POST /api/ddl 
 
-Create a prompt. Janet will fetch tables matching filters using a read only connection. The prompt will be saved to disk and used on calls to `/api/answer`, if requested. See `/api/answer` for more details.
+Load the database ddl beforehand. Janet will fetch tables matching filters using a read only connection. The ddl will be saved to disk and used on calls to `/api/answer`, if requested. See `/api/answer` for more details.
 
 Request Body
 
@@ -28,20 +28,19 @@ Request Body
 
 Example
 ```sh
-curl -X POST -H "Content-Type: application/json" -d "{ \"name\": \"public\" }" http://localhost:3000/api/prompt
+curl -X POST -H "Content-Type: application/json" -d "{ \"name\": \"public\" }" http://localhost:3000/api/ddl
 ```
 
 #### POST /api/answer
 
-Answer a basic analytics question. If a `promptName` is not passed, then it'll call `/api/prompt` beforehand. To speed up queries and lower usage costs, it's recommened you create prompts beforehand, and to only include
-the minimal number of required DDLs to answer the question.
+Answer a basic analytics question. If a `ddl` is not passed, then it'll call `/api/ddl` beforehand. To speed up queries and lower usage costs, it's recommened you create prompts beforehand, and to only include the minimal number of required DDLs to answer the question.
 
 Request body
 
 ```typescript
 {
   question: string,
-  promptName?: string, // makes a default call to /api/prompt, but doesn't persist the result.
+  ddlName?: string, // makes a default call to /api/ddl, but doesn't persist the result.
   runQuery?: boolean, // defaults to true 
   gptParams?: Record<string, any> // these values will be passed verbatim to GPT 
 }
@@ -50,5 +49,5 @@ Request body
 Example
 
 ```sh
-curl -D '{ "promptName": "public", "question": "How many assignments were created in the last 24 hours for userId 'danny'" } -X POST http://localhost:3000/api/answer'
+curl -X POST -H "Content-Type: application/json" -d "{ \"ddlName\": \"public\", \"question\": \"How many employees were hired in 2003?\" }" http://localhost:3000/api/answer
 ```

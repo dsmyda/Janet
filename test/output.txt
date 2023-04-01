@@ -1,0 +1,22 @@
+Query: "Who has the most invoices?"
+Output:
+{
+  "code": 200,
+  "data": {
+    "results":[
+      {
+        "FirstName": "Alexandre",
+        "LastName": "Rocha",
+        "count": "7"
+      }
+    ],
+    "query": '
+      SELECT "Customer"."FirstName", "Customer"."LastName", COUNT("Invoice"."InvoiceId")
+      FROM "public"."Invoice" 
+      INNER JOIN "public"."Customer" ON "Invoice"."CustomerId" = "Customer"."CustomerId"
+      GROUP BY "Customer"."FirstName",  "Customer"."LastName"
+      ORDER BY COUNT("Invoice"."InvoiceId") DESC
+      LIMIT 1;
+    '
+  }
+}

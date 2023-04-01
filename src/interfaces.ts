@@ -14,3 +14,10 @@ export const ZodPromptPostBody = z.object({
 })
 
 export type Filters = z.infer<typeof ZodPromptPostBody>['filters']
+
+export const ZodAnswerPostBody = z.object({
+  question: z.string().min(1, { message: "Question must be at least 1 character long" }).max(100, { message: "Question must be at most 100 characters long" }),
+  ddlName: z.string().optional(),
+  runQuery: z.boolean().optional().default(true),
+  gptParams: z.record(z.any()).optional().default({})
+})

@@ -3,7 +3,7 @@ import { ConnectionInfo } from './config'
 import { Filters } from "./interfaces";
 
 function columnReducer(prev: any, column: Column) {
-  const columnKey = `"${column.name}"`
+  const columnKey = `${column.name}`
   if (column.type.hasLength) {
     prev[columnKey] = `${column.type.name}(${column.length})`
   } else if (column.type.hasPrecision && column.type.hasScale) {
@@ -35,7 +35,7 @@ export async function getDatabaseStructure(engine: string, connectionInfo: Conne
     const ret = []
     for (const table of db.tables) {
       ret.push({
-        name: `"${table.schema.name}"."${table.name}"`,
+        name: `${table.schema.name}.${table.name}`,
         columns: table.columns.reduce(columnReducer, {} as any),
         indexes: table.indexes.map(indexMapper),
       })

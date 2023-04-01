@@ -20,7 +20,7 @@ if (env === 'development') {
   require('dotenv').config()  
 }
 
-checkOrFail(process.env.GPT_API_KEY, 'Please set GPT_API_KEY environment variable.')
+checkOrFail(process.env.OPENAI_API_KEY, 'Please set GPT_API_KEY environment variable.')
 
 const engine = process.env.DATABASE_ENGINE || 'postgres'
 const database = process.env.DATABASE_NAME || 'postgres'
@@ -29,11 +29,11 @@ const user = process.env.DATABASE_USER || 'postgres'
 const password = process.env.DATABASE_PASSWORD || 'postgres'
 const port = (process.env.DATABASE_PORT) ? Number(process.env.DATABASE_PORT) : 5432 
 
-const apiKey = process.env.GPT_API_KEY
-const promptStoragePath = process.env.PROMPT_STORAGE_PATH || './.janet/prompts'
+const openAIApiKey = process.env.OPENAI_API_KEY
+const promptStoragePath = process.env.PROMPT_STORAGE_PATH || '~/.janet/prompts'
 
 const config = {
-  apiKey,
+  openAIApiKey,
   engine,
   info: { database, user, host, password, port },
   promptStoragePath
