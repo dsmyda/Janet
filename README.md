@@ -72,7 +72,7 @@ Ask a basic analytics question, and get back the results. The query Janet used t
 
 If a `preloadName` is not passed, then it'll call `/api/preload`. To lower usage costs and improve accuracy, it's recommended you preload and only include the smallest subset of tables required to answer the question.
 
-If OpenAI returns multiple responses (default 3, configurable using the 'openaiParams' field), then the first query that succeeds will be taken.
+If OpenAI returns multiple responses (default 3, configurable using the `openaiParams` field), then the first query that succeeds will be taken.
 
 Request body
 
