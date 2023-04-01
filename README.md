@@ -1,17 +1,42 @@
 # Janet
 
-Janet will read your database DLL, do a bit of prompt engineering, and then automatically generate SQL queries that answer your question. Janus is designed to do basic descriptive analytics - which broadly means it'll help you summarize the past and find counts, trends, etc. The intention of this tool is to automate the first step of most data analytics workflows, the development of ad-hoc dashboards for monitoring and visualization, and to reduce the load on teams that get asked analytics questions in Slack. 
+Basic analytics questions? Just ask Janet.
 
-Janet currently only supports Postgres. I might expand it to include database engines in the future.
+Janet is capable of indexing your database schema, automatically generating SQL queries with the help of OpenAI and then automatically executing those results against your database.
+Only the Table DDL will be shared with OpenAI's API, Janet will never query for or include any row data from your table.
 
-## Components
-WIP
+Janet is designed to do basic descriptive analytics - which broadly means it'll help you summarize the past, find counts, trends, etc. This tool can be used to reduce development time, assist in
+dashboard creation, and ultimately reduce the burden on teams answering data-driven questions in Slack. 
 
-### Web Server
+As part of this initial release, only Postgres is supported.
 
-#### POST /api/ddl 
+## How it works
 
-Load the database ddl beforehand. Janet will fetch tables matching filters using a read only connection. The ddl will be saved to disk and used on calls to `/api/answer`, if requested. See `/api/answer` for more details.
+TODO
+
+## Best Practices
+
+### Least Privilege
+
+Please only give Janet the least amount of privilege required to answer your questions. Our recommendation is to:
+
+1. Create a seperate database user
+2. Supply a read-only connection
+3. Restrict who has access to call Janet's APIs
+
+### Smallest Preload
+
+It's recommended that you preload subsets of your database schema to answer specific and/or frequent questions. This reduces the size of the prompt sent to OpenAI, which will save you money
+and improve the accuracy of the results. In addition, it'll prevent you from accidentally exposing sensitive table ddl, if that's a consideration for you and your team (note: Janet will never
+send actual table data to OpenAI).
+
+## HTTP API 
+
+### POST /api/preload 
+
+Load and cache a subset of your database schema beforehand. 
+
+Janet will fetch tables matching the filters. The ddl will be saved to disk and can be used when calling `/api/question`. See `/api/question` for more details.
 
 Request Body
 
@@ -28,26 +53,30 @@ Request Body
 
 Example
 ```sh
-curl -X POST -H "Content-Type: application/json" -d "{ \"name\": \"public\" }" http://localhost:3000/api/ddl
+curl -X POST -H "Content-Type: application/json" -d "{ \"name\": \"public\" }" http://localhost:3000/api/preload
 ```
 
-#### POST /api/answer
+### POST /api/question
 
-Answer a basic analytics question. If a `ddl` is not passed, then it'll call `/api/ddl` beforehand. To speed up queries and lower usage costs, it's recommened you create prompts beforehand, and to only include the minimal number of required DDLs to answer the question.
+Ask a basic analytics question, and get back the results. The query Janet used to generate the results will be attached as well, for review and verification.
+
+If a `preloadName` is not passed, then it'll call `/api/preload` beforehand. To lower usage costs and improve accuracy, it's recommended you preload beforehand and only include the smallest subset of tables required to answer the question.
+
+If OpenAI returns multiple responses (default 3, configurable using the 'openaiParams' field), then the first query that succeeds will be taken.
 
 Request body
 
 ```typescript
 {
   question: string,
-  ddlName?: string, // makes a default call to /api/ddl, but doesn't persist the result.
+  preloadName?: string, // makes a default call to /api/preload, but doesn't persist the result.
   runQuery?: boolean, // defaults to true 
-  gptParams?: Record<string, any> // these values will be passed verbatim to GPT 
+  openaiParams?: Record<string, any> // defaults to { "model": "text-davinci-003", "temperature": 0.2, "n": 3, "max_tokens": 32 } 
 }
 ```
 
 Example
 
 ```sh
-curl -X POST -H "Content-Type: application/json" -d "{ \"ddlName\": \"public\", \"question\": \"How many employees were hired in 2003?\" }" http://localhost:3000/api/answer
+curl -X POST -H "Content-Type: application/json" -d "{ \"preloadName\": \"public-schemas\", \"question\": \"How many employees were hired in 2003?\" }" http://localhost:3000/api/question
 ```

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import config from './config'
 import { getDatabaseStructure } from './introspection'
-import * as promptApi from './prompt'
+import * as preloadApi from './preload'
 
 async function getEngineeredPrompt(question: string, ddlName?: string) {
   if (!question.endsWith('.')) {
@@ -9,7 +9,7 @@ async function getEngineeredPrompt(question: string, ddlName?: string) {
   }
   let databaseSchema = ''
   if (ddlName) {
-    databaseSchema = await promptApi.load(ddlName)
+    databaseSchema = await preloadApi.load(ddlName)
   } else {
     // databaseSchema = JSON.stringify(await getDatabaseStructure(config.engine, config.info, { schemas: ['public'], includeTables: ['*'], excludeTables: [] }))
   }

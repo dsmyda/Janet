@@ -1,5 +1,5 @@
 import express from 'express'
-import * as promptApi from '../src/prompt'
+import * as preloadApi from '../src/preload'
 import * as answerApi from '../src/openai'
 import { send200, send400, send500 } from './utils'
 import { ZodAnswerPostBody, ZodPromptPostBody } from '../src/interfaces'
@@ -13,7 +13,7 @@ app.use(function(_, res, next) {
   next()
 })
 
-app.post('/api/ddl', (req, res) => {
+app.post('/api/preload', (req, res) => {
   const body = req.body
   const parseResult = ZodPromptPostBody.safeParse(body)
   if (!parseResult.success) {
@@ -22,12 +22,12 @@ app.post('/api/ddl', (req, res) => {
   }
 
   const safePayload = parseResult.data
-  promptApi.exists(safePayload.name)
+  preloadApi.exists(safePayload.name)
     .then((exists: boolean) => {
       if (exists) {
         send400(res, `Prompt with name '${safePayload.name}' already exists.`)
       } else {
-        promptApi.create(safePayload.name, safePayload.filters)
+        preloadApi.create(safePayload.name, safePayload.filters)
         .then(() => send200(res, `Prompt with name '${safePayload.name}' created.`))
         .catch((err: Error) => { 
           console.error(err)
@@ -37,7 +37,7 @@ app.post('/api/ddl', (req, res) => {
     })
   })
 
-app.post('/api/answer', (req, res) => {
+app.post('/api/question', (req, res) => {
   const body = req.body
   const parseResult = ZodAnswerPostBody.safeParse(body)
   if (!parseResult.success) {
