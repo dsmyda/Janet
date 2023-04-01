@@ -1,5 +1,15 @@
 # Janet
 
+Janet is capable of indexing your database schema, automatically generating SQL queries with the help of OpenAI and then automatically executing those results against your database.
+Only the Table DDL will be shared with OpenAI's API, Janet will never query for or include any row data from your table.
+
+Janet is designed to do basic descriptive analytics - which broadly means it'll help you summarize the past, find counts, trends, etc. This tool can be used to reduce development time, assist in
+dashboard creation, and ultimately reduce the burden on teams answering data-driven questions in Slack. 
+
+As part of this initial release, only Postgres is supported.
+
+## How it works
+
 ```
 Janet, which customer has the most invoices?
 
@@ -11,16 +21,6 @@ Result:
 }
 
 ```
-
-Janet is capable of indexing your database schema, automatically generating SQL queries with the help of OpenAI and then automatically executing those results against your database.
-Only the Table DDL will be shared with OpenAI's API, Janet will never query for or include any row data from your table.
-
-Janet is designed to do basic descriptive analytics - which broadly means it'll help you summarize the past, find counts, trends, etc. This tool can be used to reduce development time, assist in
-dashboard creation, and ultimately reduce the burden on teams answering data-driven questions in Slack. 
-
-As part of this initial release, only Postgres is supported.
-
-## How it works
 
 TODO
 
