@@ -28,7 +28,7 @@ TODO
 
 ### Least Privilege
 
-Please only give Janet the least amount of privilege required to answer your questions. Our recommendation is to:
+Please only give Janet the least amount of privilege required to answer your questions. Our recommendations
 
 1. Create a seperate database user
 2. Supply a read-only connection
