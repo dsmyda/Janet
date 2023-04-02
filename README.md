@@ -24,7 +24,7 @@ TODO - Add a diagram
 
 openquery should only be given the least amount of privilege required to answer your questions. Our recommendation
 
-1. Create a seperate database user
+1. Create a seperate database user, with sane RBAC
 2. Supply a read-only connection
 3. Restrict who has access to openquery's APIs
 
