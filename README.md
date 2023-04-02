@@ -33,6 +33,25 @@ openquery should only be given the least amount of privilege required to answer 
 
 It's recommended that you synthesize subsets of your database schema to answer specific and/or frequent questions. This reduces the context length, saving you money and ensuring broad model support. 
 
+### Don't use PII
+
+In most cases, you can rephrase your query to eliminate PII. Take the following example
+
+_BAD_
+```
+How many total invoices do we have for john.doe@gmail.com?
+```
+
+_BETTER_
+```
+How many total invoices do we have for emails starting with 'joe' and ending with '@gmail.com'?
+```
+
+_IDEAL_
+```
+How many total invoices do we have for user id ea916801-2987-4f29-aab5-f2b1061dc8f4?
+```
+
 ## HTTP API 
 
 ### POST /api/synthesize 
