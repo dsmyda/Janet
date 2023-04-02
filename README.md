@@ -8,17 +8,25 @@ Still under active development. Currently supports OpenAI and Postgres.
 
 demo: TBD
 
+## Installation
+
+TODO - add installation for openquery cli binary
+
 ## Features
 
 - Supports OpenAI language models
 - Built-in AST for query validation & correction
 - Supports 19+ dialects, including Postgres, Presto, BigQuery and Snowflake
+- Support for quering CSV and TSV files (planned)
 - Built-in PII detection to prevent accidental data leaks (planned)
 - Integrates with Discord and Slack (planned)
 
 ## How it works
 
-TODO - Add a diagram
+### Concepts
+
+- Profiles (TBD - allows for easy switching between remote dbs)
+- 
 
 ## Best Practices
 
