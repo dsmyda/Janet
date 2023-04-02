@@ -11,8 +11,7 @@ demo: TBD
 ## Features
 
 - SQL validation & correction
-- Database schema masking (planned)
-- OpenQL - a simple natural query language with data masking.
+- Data masking
 
 ## How it works
 
