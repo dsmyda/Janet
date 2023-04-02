@@ -6,6 +6,12 @@ As part of this initial release, only OpenAI and Postgres are supported.
 
 ## How it works
 
+### Concepts
+
+TODO
+
+### Architecture
+
 TODO
 
 ## Best Practices
