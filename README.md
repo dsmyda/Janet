@@ -44,7 +44,7 @@ How many total invoices do we have for john.doe@gmail.com?
 
 _BETTER_
 ```
-How many total invoices do we have for emails starting with 'joe' and ending with '@gmail.com'?
+How many total invoices do we have for emails starting with 'john' and ending with '@gmail.com'?
 ```
 
 _IDEAL_
