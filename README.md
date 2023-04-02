@@ -19,7 +19,7 @@ TODO - add installation for openquery cli binary
 - Supports 19+ dialects, including Postgres, Presto, BigQuery and Snowflake
 - Support for quering CSV and TSV files (planned)
 - Built-in PII detection to prevent accidental data leaks (planned)
-- Integrates with Discord and Slack (planned)
+- Integration with Discord and Slack (planned)
 
 ## How it works
 
