@@ -73,3 +73,9 @@ Example
 ```sh
 curl -X POST -H "Content-Type: application/json" -d "{ \"preloadName\": \"public-schemas\", \"question\": \"How many employees were hired in 2003?\" }" http://localhost:3000/api/question
 ```
+
+### Slack
+
+TODO
+
+### Discord
