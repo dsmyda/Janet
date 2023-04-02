@@ -43,12 +43,7 @@ _BAD_
 How many total invoices do we have for john.doe@gmail.com?
 ```
 
-_BETTER_
-```
-How many total invoices do we have for emails starting with 'john' and ending with '@gmail.com'?
-```
-
-_IDEAL_
+_GOOD_
 ```
 How many total invoices do we have for user with id 'ea916801-2987-4f29-aab5-f2b1061dc8f4'?
 ```
