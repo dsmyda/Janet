@@ -12,7 +12,7 @@ demo: TBD
 
 - SQL validation & correction
 - Database schema masking (planned)
-- OpenQL - a simple natural query language that supports data masking.
+- OpenQL - a simple natural query language with data masking.
 
 ## How it works
 
