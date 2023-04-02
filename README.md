@@ -11,8 +11,8 @@ demo: TBD
 ## Features
 
 - Supports OpenAI language models
-- SQL validation & correction
-- Data masking
+- Built-in AST for validation & correction
+- Supports 19+ dialects, including Postgres, Presto, Hive and Snowflake (planned)
 
 ## How it works
 
