@@ -52,6 +52,8 @@ _IDEAL_
 How many total invoices do we have for user id ea916801-2987-4f29-aab5-f2b1061dc8f4?
 ```
 
+openquery has built-in pii detection to prevent these kind of mistakes.
+
 ## HTTP API 
 
 ### POST /api/synthesize 
