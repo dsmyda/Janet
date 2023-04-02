@@ -24,7 +24,7 @@ TODO - add installation for openquery cli binary
 ### Concepts
 
 - Profiles (TBD - allows for easy switching between remote dbs)
-- 
+- Synth
 
 ## Best Practices
 
