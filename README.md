@@ -35,7 +35,7 @@ openquery should only be given the least amount of privilege required to answer 
 1. Create a seperate database user, with defensive RBAC
 2. Supply a read-only connection
 
-### Minimal Synthesis
+### Smallest Synth
 
 It's recommended that you synth the smallest subset of tables needed to produce complete queries. This reduces the context length, saving you money and ensuring broad model support. 
 
