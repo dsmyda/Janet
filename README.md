@@ -14,6 +14,7 @@ demo: TBD
 - Built-in AST for query validation & correction
 - Supports 19+ dialects, including Postgres, Presto, BigQuery and Snowflake
 - Built-in PII detection to prevent accidental data leaks
+- Integrates with Discord and Slack (planned)
 
 ## How it works
 
