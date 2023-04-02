@@ -2,9 +2,9 @@
 
 openquery is an open source automated descriptive analytics system. It works by synthesizing your database schema to generate candidate queries. You can opt-in to automatically run those queries for a nice end-to-end experience.
 
-OpenQuery is designed with information security in mind, and ships with effective data masking techniques for both your schema and natural language queries.
+openquery is designed with information security in mind, and plans to ship with effective data masking techniques for both your schema and natural language queries.
 
-Currently in alpha, still under active development. Supports OpenAI and Postgres.
+Still under active development. Currently supports OpenAI and Postgres.
 
 demo: TBD
 
@@ -22,7 +22,7 @@ TODO - Add a diagram
 
 ### Least Privilege
 
-Please only give OpenQuery the least amount of privilege required to answer your questions. Our recommendation
+Please only give openquery the least amount of privilege required to answer your questions. Our recommendation
 
 1. Create a seperate database user
 2. Supply a read-only connection
@@ -39,7 +39,7 @@ and improve the accuracy of the results.
 
 Digest and cache a subset of your database schema. 
 
-OpenQuery will fetch tables matching the filters. The results will be saved to disk and can be referenced when calling `/api/question`. See `/api/question` for more details.
+openquery will fetch tables matching the filters. The results will be saved to disk and can be referenced when calling `/api/question`. See `/api/question` for more details.
 
 Request Body
 
