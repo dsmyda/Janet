@@ -1,7 +1,5 @@
 # Janet
 
-Basic analytics questions? Just ask Janet.
-
 Janet is capable of indexing your database schema, automatically generating SQL queries with the help of OpenAI and then automatically executing those results against your database.
 Only the Table DDL will be shared with OpenAI's API, Janet will never query for or include any row data from your table.
 
@@ -12,13 +10,25 @@ As part of this initial release, only Postgres is supported.
 
 ## How it works
 
+```
+Janet, which customer has the most invoices?
+
+Result:
+{
+  "FirstName": "Alexandre",
+  "LastName": "Rocha",
+  "count": "7"
+}
+
+```
+
 TODO
 
 ## Best Practices
 
 ### Least Privilege
 
-Please only give Janet the least amount of privilege required to answer your questions. Our recommendation is to:
+Please only give Janet the least amount of privilege required to answer your questions. Our recommendations
 
 1. Create a seperate database user
 2. Supply a read-only connection
@@ -60,9 +70,9 @@ curl -X POST -H "Content-Type: application/json" -d "{ \"name\": \"public\" }" h
 
 Ask a basic analytics question, and get back the results. The query Janet used to generate the results will be attached as well, for review and verification.
 
-If a `preloadName` is not passed, then it'll call `/api/preload` beforehand. To lower usage costs and improve accuracy, it's recommended you preload beforehand and only include the smallest subset of tables required to answer the question.
+If a `preloadName` is not passed, then it'll call `/api/preload`. To lower usage costs and improve accuracy, it's recommended you preload and only include the smallest subset of tables required to answer the question.
 
-If OpenAI returns multiple responses (default 3, configurable using the 'openaiParams' field), then the first query that succeeds will be taken.
+If OpenAI returns multiple responses (default 3, configurable using the `openaiParams` field), then the first query that succeeds will be taken.
 
 Request body
 
