@@ -38,7 +38,7 @@ It's recommended that you synthesize subsets of your database schema to answer s
 
 Digest and cache a subset of your database schema. 
 
-openquery will fetch tables matching the filters. The results will be saved to disk and can be referenced when calling `/api/question`. See `/api/question` for more details.
+openquery will fetch tables matching the filter criteria. The results will be saved to disk and can be referenced when calling `/api/question`. See `/api/question` for more details.
 
 Request Body
 
