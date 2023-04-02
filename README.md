@@ -22,16 +22,15 @@ TODO - Add a diagram
 
 ### Least Privilege
 
-Please only give openquery the least amount of privilege required to answer your questions. Our recommendation
+openquery should only be given the least amount of privilege required to answer your questions. Our recommendation
 
 1. Create a seperate database user
 2. Supply a read-only connection
-3. Restrict who has access to OpenQuery's APIs
+3. Restrict who has access to openquery's APIs
 
-### Smallest Synthesis
+### Minimal Synthesis
 
-It's recommended that you synthesize subsets of your database schema to answer specific and/or frequent questions. This reduces the size of the prompt sent to OpenAI, which will save you money
-and improve the accuracy of the results.
+It's recommended that you synthesize subsets of your database schema to answer specific and/or frequent questions. This reduces the context length, saving you money and ensuring broad model support. 
 
 ## HTTP API 
 
