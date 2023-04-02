@@ -1,11 +1,10 @@
 # <img style="background:white; border-radius: 12px;" src="https://user-images.githubusercontent.com/12688453/229330427-fc12979a-443d-43c7-8e3f-2938cd5e3b78.png"  width="24" height="24"> openquery
-alpha, in development.
 
 OpenQuery is an open source library that automates the most mundane analytics questions. It works by synthesizing your database schema and using that to generate candidate queries. You can opt-in to automatically run those queries for a nice end-to-end experience.
 
 OpenQuery is designed with information security in mind, and ships with effective data masking techniques for both your schema and natural language queries.
 
-As part of this initial release, only OpenAI and Postgres are supported.
+Currently in alpha, still under active development. Supports OpenAI and Postgres.
 
 demo: TBD
 
