@@ -83,8 +83,8 @@ Example
 curl -X POST -H "Content-Type: application/json" -d "{ \"synthName\": \"public-schemas\", \"question\": \"How many employees were hired in 2003?\" }" http://localhost:3000/api/question
 ```
 
-### Slack
+## Slack
 
 TODO
 
-### Discord
+## Discord
