@@ -27,18 +27,18 @@ Please only give OpenQuery the least amount of privilege required to answer your
 2. Supply a read-only connection
 3. Restrict who has access to OpenQuery's APIs
 
-### Smallest Preload
+### Smallest Synthesis
 
-It's recommended that you preload subsets of your database schema to answer specific and/or frequent questions. This reduces the size of the prompt sent to OpenAI, which will save you money
+It's recommended that you synthesize subsets of your database schema to answer specific and/or frequent questions. This reduces the size of the prompt sent to OpenAI, which will save you money
 and improve the accuracy of the results.
 
 ## HTTP API 
 
-### POST /api/preload 
+### POST /api/synthesize 
 
-Load and cache a subset of your database schema. 
+Digest and cache a subset of your database schema. 
 
-OpenQuery will fetch tables matching the filters. The ddl will be saved to disk and can be used when calling `/api/question`. See `/api/question` for more details.
+OpenQuery will fetch tables matching the filters. The results will be saved to disk and can be referenced when calling `/api/question`. See `/api/question` for more details.
 
 Request Body
 
@@ -55,14 +55,14 @@ Request Body
 
 Example
 ```sh
-curl -X POST -H "Content-Type: application/json" -d "{ \"name\": \"public\" }" http://localhost:3000/api/preload
+curl -X POST -H "Content-Type: application/json" -d "{ \"name\": \"public\" }" http://localhost:3000/api/synthesize
 ```
 
 ### POST /api/question
 
-Ask a basic analytics question, and get back the results. The query used to produce the results will be attached, for review and verification.
+Ask a basic analytics question. The query used to produce the results will be attached, for review and verification.
 
-If a `preloadName` is not passed, then it'll call `/api/preload`. To lower usage costs and improve accuracy, it's recommended you preload and only include the smallest subset of tables required to answer the question.
+If a `synthName` is not passed, then it'll call `/api/synthesize`. To lower usage costs and improve accuracy, it's recommended you synthesize the smallest subset of tables required to answer the question.
 
 If OpenAI returns multiple responses (default 3, configurable using the `openaiParams` field), then the first query that succeeds will be taken.
 
@@ -71,16 +71,16 @@ Request body
 ```typescript
 {
   question: string,
-  preloadName?: string, // makes a default call to /api/preload, but doesn't persist the result.
+  synthName?: string, // makes a default call to /api/synthesize, but doesn't persist the result.
   runQuery?: boolean, // defaults to true 
-  openaiParams?: Record<string, any> // defaults to { "model": "text-davinci-003", "temperature": 0.2, "n": 3, "max_tokens": 32 } 
+  openaiParams?: Record<string, any> // defaults to { "model": "text-davinci-003", "temperature": 1, "n": 3, "max_tokens": 32 } 
 }
 ```
 
 Example
 
 ```sh
-curl -X POST -H "Content-Type: application/json" -d "{ \"preloadName\": \"public-schemas\", \"question\": \"How many employees were hired in 2003?\" }" http://localhost:3000/api/question
+curl -X POST -H "Content-Type: application/json" -d "{ \"synthName\": \"public-schemas\", \"question\": \"How many employees were hired in 2003?\" }" http://localhost:3000/api/question
 ```
 
 ### Slack
