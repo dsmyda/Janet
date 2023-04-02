@@ -52,6 +52,12 @@ openquery has built-in pii detection to prevent these kind of mistakes.
 
 ## HTTP API 
 
+### POST /api/upload
+
+Upload a schema dump as a sql file.
+
+openquery will save this file to disk and use it when referenced in `/api/synthesize`.
+
 ### POST /api/synthesize 
 
 Digest and cache a subset of your database schema. 
@@ -62,7 +68,8 @@ Request Body
 
 ```typescript
 {
-  name: string, // must be unique 
+  name: string, // must be unique
+  sqlFile?: string // optional sql file uploaded via `/api/upload`
   filters?: {
     schemas?: string[] // defaults to ['public']
     includeTables: RegExp[], // defaults to ["/*/"]
