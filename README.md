@@ -13,7 +13,7 @@ TODO - add installation for openquery cli binary
 ## Features
 
 - OpenAI language models
-- Built-in AST for query correction in 20+ dialects, including Postgres, Presto, BigQuery and Snowflake
+- Built-in AST for query parsing in 20+ dialects, including Postgres, Presto, BigQuery and Snowflake
 - Schema introspection and query execution in 5 dialects, with community support for 10+ others
 - Support for quering CSV and TSV files (planned)
 - Built-in PII detection to prevent accidental data leaks (planned)
