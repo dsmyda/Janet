@@ -1,6 +1,6 @@
 # openquery
 
-OpenQuery is an open source library that automates the most mundane analytics questions. It works by synthesizing your database schema and using that to generate candidate queries. You can opt-in to automatically running those queries for nice end-to-end experience.
+OpenQuery is an open source library that automates the most mundane analytics questions. It works by synthesizing your database schema and using that to generate candidate queries. You can opt-in to automatically running those queries for a nice end-to-end experience.
 
 As part of this initial release, only OpenAI and Postgres are supported.
 
