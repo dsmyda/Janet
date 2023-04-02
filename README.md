@@ -37,7 +37,7 @@ openquery should only be given the least amount of privilege required to answer 
 
 ### Minimal Synthesis
 
-It's recommended that you synthesize subsets of your database schema to answer specific and/or frequent questions. This reduces the context length, saving you money and ensuring broad model support. 
+It's recommended that you synth the smallest subset of tables needed to produce complete queries. This reduces the context length, saving you money and ensuring broad model support. 
 
 ### Don't use PII
 
