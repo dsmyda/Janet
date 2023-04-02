@@ -13,7 +13,7 @@ demo: TBD
 - Supports OpenAI language models
 - Built-in AST for query validation & correction
 - Supports 19+ dialects, including Postgres, Presto, BigQuery and Snowflake
-- Automated PII detection to prevent accidental data leaks
+- Built-in PII detection to prevent accidental data leaks
 
 ## How it works
 
