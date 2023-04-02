@@ -12,7 +12,7 @@ demo: TBD
 
 - Supports OpenAI language models
 - Built-in AST for validation & correction
-- Supports 19+ dialects, including Postgres, Presto, Hive and Snowflake (planned)
+- Supports 19+ dialects, including Postgres, Presto, Spark and Snowflake (planned)
 
 ## How it works
 
