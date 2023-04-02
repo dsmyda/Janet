@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  db:
+  postgres:
     image: postgres:14.1-alpine
     restart: always
     environment:
@@ -9,7 +9,7 @@ services:
     ports:
       - '5432:5432'
     volumes: 
-      - db2:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
 volumes:
-  db2:
+  postgres:
     driver: local
