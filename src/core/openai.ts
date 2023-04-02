@@ -1,9 +1,14 @@
 import axios from 'axios'
-import config from './config'
-import { getDatabaseStructure } from './introspection'
 import * as preloadApi from './preload'
 
-async function getEngineeredPrompt(question: string, ddlName?: string) {
+const DEFAULT_PARAMS = {
+  model: 'text-davinci-003',
+  temperature: 1,
+  n: 3,
+  max_tokens: 150
+}
+
+async function getEngineeredPrompt(engine: string, question: string, ddlName?: string) {
   if (!question.endsWith('.')) {
     question += '.' 
   }
@@ -16,23 +21,23 @@ async function getEngineeredPrompt(question: string, ddlName?: string) {
 
   return `${question}
 
-Use the PostgreSQL 10+ database below to create a SQL query to answer the question above.
-I must wrap table names and column names in double quotes, no exceptions.
+Use the ${engine} database below to create a SQL query to answer the question above. You must only return the SQL statement, do not include any additional text.
+Use the indexes to make your query as efficient as possible.
     
-Postgres Database: """
+${engine} database: """
 ${databaseSchema}
 """
 `
 }
 
-export async function getAnswer(question: string, ddlName?: string) {
-  const prompt = await getEngineeredPrompt(question, ddlName)
+export async function getCandidateQueries(engine: string, question: string, ddlName?: string, params: Record<string, any> = DEFAULT_PARAMS) {
+  const prompt = await getEngineeredPrompt(engine, question, ddlName)
 
   const { status, data } = await axios.post('https://api.openai.com/v1/completions', {
-    model: 'text-davinci-003',
+    ...params,
     prompt,
-    max_tokens: 500,
   }, {
+    timeout: 5000,
     headers: {
       'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
       'Content-Type': 'application/json'
@@ -43,5 +48,7 @@ export async function getAnswer(question: string, ddlName?: string) {
     throw new Error(`OpenAI API returned status code ${status}, data: ${JSON.stringify(data)}`)
   }
 
-  return data.choices[0].text
+  console.log('OpenAI API returned', data)
+  
+  return data.choices.map((data: any) => data.text)
 }

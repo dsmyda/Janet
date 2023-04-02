@@ -132,3 +132,4 @@ dist
 *.js
 node_modules/
 .janet
+__pycache__

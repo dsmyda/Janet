@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "NODE_ENV=development ts-node ./web/index.ts"
+    "start:http": "NODE_ENV=development ts-node ./services/http/index.ts"
   },
   "repository": {
     "type": "git",
