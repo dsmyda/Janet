@@ -4,8 +4,6 @@ openquery is an open source automated descriptive analytics system. It works by 
 
 openquery is designed with information security in mind, and plans to support automated PII detection for your database schema and natural language queries.
 
-Still under active development. Currently supports OpenAI and Postgres.
-
 demo: TBD
 
 ## Installation
