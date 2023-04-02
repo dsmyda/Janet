@@ -1,51 +1,83 @@
 # <img style="background:white; border-radius: 12px;" src="https://user-images.githubusercontent.com/12688453/229330427-fc12979a-443d-43c7-8e3f-2938cd5e3b78.png"  width="24" height="24"> openquery
 
-OpenQuery is an open source library that automates the most mundane analytics questions. It works by synthesizing your database schema and using that to generate candidate queries. You can opt-in to automatically run those queries for a nice end-to-end experience.
+openquery is an open source automated descriptive analytics system. It works by translating natural language queries into SQL, using your database schema to generate viable solutions. You can opt-in to automatically run those SQL queries for a nice end-to-end experience.
 
-OpenQuery is designed with information security in mind, and ships with effective data masking techniques for both your schema and natural language queries.
+openquery is designed with information security in mind, and plans to support automated PII detection for your database schema and natural language queries.
 
-Currently in alpha, still under active development. Supports OpenAI and Postgres.
+Still under active development. Currently supports OpenAI and Postgres.
 
 demo: TBD
+
+## Installation
+
+TODO - add installation for openquery cli binary
 
 ## Features
 
 - Supports OpenAI language models
-- SQL validation & correction
-- Data masking
+- Built-in AST for query validation & correction
+- Supports 19+ dialects, including Postgres, Presto, BigQuery and Snowflake
+- Support for quering CSV and TSV files (planned)
+- Built-in PII detection to prevent accidental data leaks (planned)
+- Integration with Discord and Slack (planned)
 
 ## How it works
 
-TODO - Add a diagram
+### Concepts
+
+- Profiles (TBD - allows for easy switching between remote dbs)
+- 
 
 ## Best Practices
 
 ### Least Privilege
 
-Please only give OpenQuery the least amount of privilege required to answer your questions. Our recommendation
+openquery should only be given the least amount of privilege required to answer your questions. Our recommendation
 
-1. Create a seperate database user
+1. Create a seperate database user, with defensive RBAC
 2. Supply a read-only connection
-3. Restrict who has access to OpenQuery's APIs
+3. Restrict who has access to openquery's APIs
 
-### Smallest Synthesis
+### Minimal Synthesis
 
-It's recommended that you synthesize subsets of your database schema to answer specific and/or frequent questions. This reduces the size of the prompt sent to OpenAI, which will save you money
-and improve the accuracy of the results.
+It's recommended that you synthesize subsets of your database schema to answer specific and/or frequent questions. This reduces the context length, saving you money and ensuring broad model support. 
+
+### Don't use PII
+
+In most cases, you can rephrase your query to eliminate PII. Take the following example
+
+_BAD_
+```
+How many total invoices do we have for john.doe@gmail.com?
+```
+
+_GOOD_
+```
+How many total invoices do we have for user with id 'ea916801-2987-4f29-aab5-f2b1061dc8f4'?
+```
+
+openquery has built-in pii detection to prevent these kind of mistakes.
 
 ## HTTP API 
+
+### POST /api/upload
+
+Upload a schema dump as a sql file.
+
+openquery will save this file to disk and use it when referenced in `/api/synthesize`.
 
 ### POST /api/synthesize 
 
 Digest and cache a subset of your database schema. 
 
-OpenQuery will fetch tables matching the filters. The results will be saved to disk and can be referenced when calling `/api/question`. See `/api/question` for more details.
+openquery will fetch tables matching the filter criteria. The results will be saved to disk and can be referenced when calling `/api/question`. See `/api/question` for more details.
 
 Request Body
 
 ```typescript
 {
-  name: string, // must be unique 
+  name: string, // must be unique
+  sqlFile?: string // optional sql file uploaded via `/api/upload`
   filters?: {
     schemas?: string[] // defaults to ['public']
     includeTables: RegExp[], // defaults to ["/*/"]
