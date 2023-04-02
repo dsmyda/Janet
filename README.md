@@ -62,7 +62,7 @@ curl -X POST -H "Content-Type: application/json" -d "{ \"name\": \"public\" }" h
 
 Ask a basic analytics question. The query used to produce the results will be attached, for review and verification.
 
-If a `synthName` is not passed, then it'll call `/api/synthesize`. To lower usage costs and improve accuracy, it's recommended you synthesize the smallest subset of tables required to answer the question.
+If `synthName` is not passed, then it'll call `/api/synthesize`. To lower usage costs and improve accuracy, it's recommended you synthesize the smallest subset of tables required to answer the question.
 
 If OpenAI returns multiple responses (default 3, configurable using the `openaiParams` field), then the first query that succeeds will be taken.
 
