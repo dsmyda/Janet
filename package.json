@@ -1,7 +1,7 @@
 {
-  "name": "janus",
+  "name": "openquery",
   "version": "1.0.0",
-  "description": "GPT + DDL prompts = automated descriptive analytics",
+  "description": "An open source library for automating descriptive analytics",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
