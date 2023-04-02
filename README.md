@@ -10,6 +10,7 @@ demo: TBD
 
 ## Features
 
+- Supports OpenAI language models
 - SQL validation & correction
 - Data masking
 
