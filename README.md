@@ -33,7 +33,7 @@ TODO - add installation for openquery cli binary
 openquery should only be given the least amount of privilege required to answer your questions. Our recommendation
 
 1. Create a seperate database user, with defensive RBAC
-2. Supply a read-only connection
+2. Use a read-only connection
 
 ### Smallest Synth
 
