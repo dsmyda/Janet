@@ -1,23 +1,31 @@
-def reflect():
-  # SQLAlchemy reflection
-  pass
+class Synth:
 
-def minify():
-  # minifiy SQLAlchemy reflection
-  pass
+    def __init__(self):
+        pass
 
-def serialize():
-  # serialize minified SQLAlchemy reflection
-  pass
+    def _serialize(self) -> bytes:
+        pass
+    
+    @staticmethod
+    def _deserialize(data: bytes) -> Synth:
+        pass
 
-def deserialize():
-  # deserialize minified SQLAlchemy reflection
-  pass
+    @staticmethod
+    def load(name: str) -> Synth:
+        pass
 
-def save():
-  # save serialized minified SQLAlchemy reflection
-  pass
+    def save(self):
+        pass
 
-def load():
-  # load serialized minified SQLAlchemy reflection
-  pass
+    @staticmethod
+    def delete(name: str):
+        pass
+
+    def minify(self) -> str:
+        pass
+
+    @staticmethod
+    def reflect(schemas, includes, excludes):
+        # Profile.getActive()
+        pass
+
