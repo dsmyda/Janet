@@ -1,7 +1,7 @@
 import argparse
 import sys
 
-class CLI:
+class OpenQueryCLI:
     def __init__(self):
         parser = argparse.ArgumentParser(
             prog="openquery",
@@ -191,4 +191,4 @@ The most commonly used openquery commands are:
         args = parser.parse_args(sys.argv[2:])
 
 if __name__ == '__main__':
-   CLI() 
+   OpenQueryCLI() 
