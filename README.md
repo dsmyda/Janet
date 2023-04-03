@@ -35,6 +35,8 @@ openquery should only be given the least amount of privilege required to answer 
 1. Create a seperate database user, with defensive RBAC
 2. Use a read-only connection
 
+while openquery ships with many [safety checks](/#), you should not rely solely on openquery to catch all edge cases.
+
 ### Smallest Synth
 
 It's recommended that you synth the smallest subset of tables needed to produce complete queries. This reduces the context length, saving you money and ensuring broad model support. 
