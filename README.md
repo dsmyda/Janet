@@ -23,9 +23,9 @@ TODO - add installation for openquery cli binary
 
 ### Concepts
 
-- Profiles
+- Profile
 - Synth
-- Language Modules
+- Language Module
 
 ## Best Practices
 
