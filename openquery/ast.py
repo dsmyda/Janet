@@ -1,27 +1,30 @@
-def parse():
-  # SQLGlot parse_one
-  pass
+import sqlglot
 
-def fix_quotes():
+class AST:
+    
+    def __init__(self, sql: str):
+        self._ast = sqlglot.parse_one(sql)
 
-  def transformer(node):
-    if isinstance(node, exp.Identifier):
-        return parse_one("\"{}\"".format(node.sql()))
-    return node
-  
-  # Transform SQLGlot AST to properly quote all identifiers
-  pass
+    def is_query(self):
+        pass
 
-def is_query():
-  # Traverse SQLGlot AST to determine if query is a SELECT
-  pass
+    def fix_common_mistakes(self):
 
-def has_pii(expression):
+        def transformer(node):
+            if isinstance(node, exp.Identifier):
+                return parse_one("\"{}\"".format(node.sql()))
+            return node
 
-  found_pii = False
+        pass
+    
+    def detect_pii(self):
+        def visit(expression): 
+            if isinstance(expression, exp.Identifier):
+                pass
 
-  if isinstance(expression, exp.Identifier):
-    if is_pii(expression.sql()):
-      found_pii = True
+            return any(visit(child) for child in expression.children)
 
-  return found_pii or any(has_pii(child) for child in expression.children)
+        visit(self._ast)
+
+    def to_sql(self):
+        pass

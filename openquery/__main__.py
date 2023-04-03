@@ -11,8 +11,8 @@ class OpenQueryCLI:
 The most commonly used openquery commands are:
     init        Initialize openquery
     ask         Ask a question
-    synth       Create and manage synths
-    profile     Create, manage and switch between profiles
+    synth       Create and manage database synths
+    database    Create, manage and switch between databases profiles 
     module      Create, manage and switch between language modules
     list        List existing resources (profiles, synths, modules, etc).
 """)
@@ -35,7 +35,7 @@ The most commonly used openquery commands are:
     def synth(self):
         parser = argparse.ArgumentParser(
             prog="openquery synth",
-            description="Create a database synthesis using the remote attached to the profile"
+            description="Create a database synthesis using the active database profile"
         )
 
         parser.add_argument(
@@ -70,21 +70,12 @@ The most commonly used openquery commands are:
             help="Synth only the specified schema. Multiple schemas can be selected by writing multiple -s switches.",
         )
 
-        parser.add_argument(
-            "-f",
-            "--file",
-            metavar="file",
-            action="append",
-            nargs=1,
-            help="Synth the local file, instead of the remote attached to the profile. Multiple files can be specified by writing multiple -f switches."
-        )
-        
         args = parser.parse_args(sys.argv[2:])
     
     def ask(self):
         parser = argparse.ArgumentParser(
             prog="openquery ask",
-            description="Ask a question and receive a SQL query. Optionally, you can opt-in to have the query automagically run by specifiying -r or by configuring it as the default in your profile."
+            description="Ask a question and receive a SQL query. Optionally, you can opt-in to have the query automagically run by specifiying -r or by configuring it as the default behavior in your database profile."
         )
 
         parser.add_argument(
@@ -100,7 +91,7 @@ The most commonly used openquery commands are:
             "-r",
             "--run",
             action="store_true",
-            help="Automagically run the query against the remote attached to the active profile. You can configure this behavior in your profile."
+            help="Automagically run the query against the active database profile. You can configure the default behavior in the database profile."
         )
 
         parser.add_argument(
@@ -111,10 +102,10 @@ The most commonly used openquery commands are:
 
         args = parser.parse_args(sys.argv[2:])
 
-    def profile(self):
+    def database(self):
         parser = argparse.ArgumentParser(
-            prog="openquery profile",
-            description="Manage and switch between profiles. A profile contains connection information, cached synths and default behavior. Profiles are independent, with the exception of the global profile, which all profiles inherit from. Profiles can override any property in the global profile."
+            prog="openquery database",
+            description="Manage and switch between database profiles. A database profile contains connection information, cached synths and default behavior."
         )
 
         group = parser.add_mutually_exclusive_group()
@@ -123,41 +114,52 @@ The most commonly used openquery commands are:
             "-c",
             "--create",
             action="store_true",
-            help="Create a new profile, you'll be walked through a WYSIWYG",
+            help="Create a new database profile, you'll be walked through a WYSIWYG",
         )
             
-        group.add_argument(
-            "-e",
-            "--edit",
-            metavar="profile",
-            help="Edit an existing profile, you'll be walked through a WYSIWYG",
-        )
-
         group.add_argument(
             "-d",
             "--delete",
             metavar="profile",
-            help="Delete an existing profile"
+            help="Delete an existing database profile"
         )
 
         group.add_argument(
             "-s",
             "--switch",
             metavar="profile",
-            help="Switch to another profile"
+            help="Switch to another database profile"
         )
         
         args = parser.parse_args(sys.argv[2:])
 
-    def use(self):
+    def module(self):
         parser = argparse.ArgumentParser(
-            prog="openquery use",
-            description="Manage and switch between language modules. A language module abstracts how language model(s) are invoked and how the output is parsed."
+            prog="openquery module",
+            description="Configure and switch between language modules. A language module abstracts how language model(s) are invoked and how the output is parsed. Use 'openquery list -m' to list the language modules supported in this installation"
         )
 
-        parser.add_argument(
-            "module",
-            help="The name of the language module to use for queries"
+        group = parser.add_mutually_exclusive_group()
+
+        group.add_argument(
+            "-c",
+            "--configure",
+            metavar="module",
+            help="Configure a language module, you'll be walked through a WYSIWYG",
+        )
+            
+        group.add_argument(
+            "-d",
+            "--delete",
+            metavar="module",
+            help="Delete an existing language module config"
+        )
+
+        group.add_argument(
+            "-s",
+            "--switch",
+            metavar="module",
+            help="Switch to another language module config"
         )
 
         args = parser.parse_args(sys.argv[2:])
@@ -165,15 +167,15 @@ The most commonly used openquery commands are:
     def list(self):
         parser = argparse.ArgumentParser(
             prog="openquery list",
-            description="List already configured resources (profiles, language modules, synths)"
+            description="List existing resources (database profiles, language modules, synths)"
         ) 
 
         group = parser.add_mutually_exclusive_group()
 
         group.add_argument(
-            "-p",
-            "--profiles",
-            help="List profiles"
+            "-d",
+            "--databases",
+            help="List databases profiles"
         )
 
         group.add_argument(
@@ -185,7 +187,13 @@ The most commonly used openquery commands are:
         group.add_argument(
             "-s",
             "--synths",
-            help="List synths"
+            help="List database synths"
+        )
+
+        group.add_argument(
+            "-a",
+            "--active",
+            help="List all active resources"
         )
 
         args = parser.parse_args(sys.argv[2:])

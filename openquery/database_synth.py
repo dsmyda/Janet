@@ -1,4 +1,4 @@
-class Synth:
+class DatabaseSynth:
 
     def __init__(self):
         pass
@@ -7,18 +7,18 @@ class Synth:
         pass
     
     @staticmethod
-    def _deserialize(data: bytes) -> Synth:
+    def _deserialize(data: bytes) -> DatabaseSynth:
         pass
 
     @staticmethod
-    def load(name: str) -> Synth:
+    def load(name: Name) -> DatabaseSynth:
         pass
 
     def save(self):
         pass
 
     @staticmethod
-    def delete(name: str):
+    def delete(name: Name):
         pass
 
     def minify(self) -> str:
@@ -26,6 +26,13 @@ class Synth:
 
     @staticmethod
     def reflect(schemas, includes, excludes):
-        # Profile.getActive()
+        # DatabaseProfile.get_active()
+        pass
+    
+    @staticmethod
+    def exists(name: Name) -> bool:
         pass
 
+    @staticmethod
+    def list() -> list[ResourceName]:
+        pass
