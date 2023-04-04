@@ -18,7 +18,7 @@ class DatabaseProfile:
     @staticmethod
     def create_cli() -> DatabaseProfile:
         pass
-    
+
     @staticmethod
     def _deserialize(data: bytes) -> DatabaseProfile:
         pass
@@ -26,10 +26,10 @@ class DatabaseProfile:
     def _serialize(self) -> bytes:
         pass
 
-    def get_synth(name: ResourceName) -> DatabaseSynth:
+    def get_synth(self, name: ResourceName) -> DatabaseSynth:
         pass
 
-    def save_synth(synth: DatabaseSynth):
+    def save_synth(self, synth: DatabaseSynth):
         pass
 
     def save(self):
@@ -43,7 +43,7 @@ class DatabaseProfile:
     def load(name: ResourceName) -> DatabaseProfile:
         pass
 
-    def set_active():
+    def set_active(self):
         # replace current active file with self
         pass
 
