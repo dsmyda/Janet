@@ -19,32 +19,15 @@ class DatabaseProfile:
     def create_cli() -> DatabaseProfile:
         pass
 
-    @staticmethod
-    def _deserialize(data: bytes) -> DatabaseProfile:
-        pass
-
-    def _serialize(self) -> bytes:
-        pass
-
-    def get_synth(self, name: ResourceName) -> DatabaseSynth:
-        pass
-
-    def save_synth(self, synth: DatabaseSynth):
-        pass
-
-    def save(self):
+    def get_synth(self, name: str) -> DatabaseSynth:
         pass
 
     @staticmethod
-    def delete(name: ResourceName):
-        pass
-
-    @staticmethod
-    def load(name: ResourceName) -> DatabaseProfile:
+    def delete(name: str):
         pass
 
     def set_active(self):
-        # replace current active file with self
+        # replace active symlink with self
         pass
 
     @staticmethod
@@ -53,9 +36,13 @@ class DatabaseProfile:
         pass
 
     @staticmethod
-    def exists(name: ResourceName) -> bool:
+    def exists(name: str) -> bool:
         pass
 
     @staticmethod
     def list() -> list[ResourceName]:
+        pass
+
+    @staticmethod
+    def from(resource: Resource): -> DatabaseProfile:
         pass

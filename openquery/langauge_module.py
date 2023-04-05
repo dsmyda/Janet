@@ -1,7 +1,6 @@
 from abc import ABC
 
 _module_path = Path.home().joinpath(".openquery", "language_modules")
-# configure with pii protection
 
 class LanguageModule(ABC):
 
