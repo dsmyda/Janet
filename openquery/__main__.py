@@ -1,5 +1,9 @@
+from profile import Profile
+from cryptography.fernet import Fernet
 import argparse
 import sys
+import keyring
+import base64
 
 class OpenQueryCLI:
     def __init__(self):
@@ -12,7 +16,7 @@ The most commonly used openquery commands are:
     init        Initialize openquery
     ask         Ask a question
     synth       Create and manage database synths
-    database    Create, manage and switch between databases profiles 
+    profile     Create, manage and switch between databases profiles 
     module      Create, manage and switch between language modules
     list        List existing resources (profiles, synths, modules, etc).
 """)
@@ -30,8 +34,23 @@ The most commonly used openquery commands are:
         getattr(self, args.command)()
 
     def init(self):
-        pass
+        print("""
+       ▄▄▄·▄▄▄ . ▐ ▄ .▄▄▄  ▄• ▄▌▄▄▄ .▄▄▄   ▄· ▄▌
+▪     ▐█ ▄█▀▄.▀·•█▌▐█▐▀•▀█ █▪██▌▀▄.▀·▀▄ █·▐█▪██▌
+ ▄█▀▄  ██▀·▐▀▀▪▄▐█▐▐▌█▌·.█▌█▌▐█▌▐▀▀▪▄▐▀▀▄ ▐█▌▐█▪
+▐█▌.▐▌▐█▪·•▐█▄▄▌██▐█▌▐█▪▄█·▐█▄█▌▐█▄▄▌▐█•█▌ ▐█▀·.
+ ▀█▄▀▪.▀    ▀▀▀ ▀▀ █▪·▀▀█.  ▀▀▀  ▀▀▀ .▀  ▀  ▀ • 
+                              OpenQuery - v1.0.0
+        """)
+
+        print("Creating openquery encryption key...", end="")
+        key = Fernet.generate_key()
+        print(key)
+        keyring.set_password("openquery", "encryption_key", key.decode())
+        print("Success!")
     
+        print()
+
     def synth(self):
         parser = argparse.ArgumentParser(
             prog="openquery synth",
@@ -102,9 +121,9 @@ The most commonly used openquery commands are:
 
         args = parser.parse_args(sys.argv[2:])
 
-    def database(self):
+    def profile(self):
         parser = argparse.ArgumentParser(
-            prog="openquery database",
+            prog="openquery profile",
             description="Manage and switch between database profiles. A database profile contains connection information, cached synths and default behavior."
         )
 
@@ -130,8 +149,21 @@ The most commonly used openquery commands are:
             metavar="profile",
             help="Switch to another database profile"
         )
-        
+
         args = parser.parse_args(sys.argv[2:])
+
+        if args.create:
+            Profile.create_cli()
+        elif args.delete:
+            Profile.delete(args.delete)
+        elif args.switch:
+            profile = Profile.fromName(args.switch)
+            profile.set_active()
+            print('\n--- Switched Profile ----')
+            print(profile)
+        else:
+            profile = Profile.get_active()
+            print(profile)
 
     def module(self):
         parser = argparse.ArgumentParser(
@@ -173,8 +205,9 @@ The most commonly used openquery commands are:
         group = parser.add_mutually_exclusive_group()
 
         group.add_argument(
-            "-d",
-            "--databases",
+            "-p",
+            "--profiles",
+            action="store_true",
             help="List databases profiles"
         )
 
@@ -190,13 +223,17 @@ The most commonly used openquery commands are:
             help="List database synths"
         )
 
-        group.add_argument(
-            "-a",
-            "--active",
-            help="List all active resources"
-        )
-
         args = parser.parse_args(sys.argv[2:])
+
+        print()
+        if args.profiles:
+            print('---- All ----')
+            for profile in Profile.list():
+                print(profile)
+            print('---- Active ----')
+            print('\nProfile:', Profile.get_active()._name)
+
+        print()
 
 if __name__ == '__main__':
    OpenQueryCLI() 

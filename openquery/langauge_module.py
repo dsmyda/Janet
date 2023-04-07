@@ -4,38 +4,12 @@ _module_path = Path.home().joinpath(".openquery", "language_modules")
 
 class LanguageModule(ABC):
 
-    @abstractmethod
-    def init():
-        pass
-    
-    @abstractmethod
-    def save():
+    def save(self):
+        # handle this automatically
         pass
 
     @staticmethod
-    @abstractmethod
-    def delete(name: ResourceName):
-        pass
-
-    @staticmethod
-    @abstractmethod
-    def load(name: ResourceName):
-        pass
-
-    @staticmethod
-    def get_active() -> LanguageModule:
-        pass
-
-    @abstractmethod
-    def generate_sql(synth: DatabaseSynth, query: NaturalLanguageQuery) -> str[]:
-        pass
-
-    def generate_asts(synth: DatabaseSynth, query: NaturalLanguageQuery):
-        queries = self.generate_sql(synth, query)
-        pass
-    
-    @staticmethod
-    def exists(name: ResourceName) -> bool:
+    def fromName(self, name: str):
         pass
 
     @staticmethod
@@ -44,5 +18,33 @@ class LanguageModule(ABC):
         pass
 
     @staticmethod
-    def list() -> list[ResourceName]:
+    def delete(name: str):
+        pass
+
+    @staticmethod
+    def get_active():
+        pass
+
+    def set_active(self):
+        pass
+
+    @abstractmethod
+    def generate_sql(self, synth: DatabaseSynth, query: NaturalLanguageQuery) -> str[]:
+        pass
+
+    def generate_asts(synth: DatabaseSynth, query: NaturalLanguageQuery):
+        queries = self.generate_sql(synth, query)
+        pass
+    
+    @staticmethod
+    def exists(name: str) -> bool:
+        pass
+
+    @staticmethod
+    def list() -> list[any]:
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def name():
         pass

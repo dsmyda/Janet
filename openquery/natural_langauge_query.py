@@ -7,3 +7,6 @@ class NaturalLanguageQuery:
 
     def detect_pii(self):
         pass
+
+    def as_text(self):
+        return self._nlq
