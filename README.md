@@ -2,7 +2,7 @@
 
 openquery is an open source automated descriptive analytics tool. It works by translating natural language queries into SQL, using your database schema to generate viable solutions. You can opt-in to automatically run those SQL queries for a nice end-to-end experience.
 
-openquery is designed with information security in mind, and supports automated PII detection for your database schema and natural language queries.
+openquery is designed with information security in mind, supporting encryption at rest, automated PII detection, guards against malicious database statements, and more.
 
 demo: TBD
 
@@ -19,10 +19,10 @@ export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
 
 - OpenAI language models
 - Query parser supporting 20+ dialects, including Postgres, Presto, BigQuery and Snowflake
-- Schema introspection and query execution in 5 dialects, with community support for 10+ others
+- Online schema introspection and query execution in 5 dialects
+- Offline support using local .sql files
 - PII detection to prevent accidental data leaks
-- Support for quering CSV and TSV files (planned)
-- Integration with Discord and Slack (planned)
+- Encryption at rest
 
 ## How it works
 
