@@ -1,45 +1,63 @@
-from database_profile import DatabaseProfile
 
-_synth_dir = Path("synths")
+import db
+import disk
+import pickle
 
-class Synth:
+SYNTH_HEADER = 0x01
 
-    def __init__(self, **kwargs):
-        self._name = kwargs["name"] 
-        self._schemas = kwargs["schemas"]
-        self._includes = kwargs["includes"]
-        self._excludes = kwargs["excludes"]
-        self._parent_path = kwargs["parent_path"]
-        self._path = self._parent_path.joinpath(self._name)
+_ACTIVE_SYNTH_SYMLINK = ".active_synth"
 
-    def __str__(self):
-        return """
-Synth: {}
+def activate(name):
+    if disk.exists(_ACTIVE_SYNTH_SYMLINK):
+        disk.delete(_ACTIVE_SYNTH_SYMLINK)
+    disk.symlink(_ACTIVE_SYNTH_SYMLINK, name)
 
-Schemas: {}
-Includes: {}
-Excludes: {}
-""".format(
-        self._name, 
-        self._schemas, 
-        self._includes, 
-        self.excludes
-    )
+def get_active():
+    if not disk.exists(_ACTIVE_SYNTH_SYMLINK):
+        raise Exception("No active synth configuration")
+    return disk.get_resolved_name(_ACTIVE_SYNTH_SYMLINK)
 
-    def save(self):
-        pass
+def _save(name: str, data):
+    pickled = pickle.dumps(data)
+    data = bytes([SYNTH_HEADER]) + pickled
+    disk.write_bytes(name, data)
+    if not disk.exists(_ACTIVE_SYNTH_SYMLINK):
+        activate(name)
 
-    def minify(self):
-        pass
+def _load(name: str):
+    data = disk.read_bytes(name)
+    header = data[0]
+    if header != SYNTH_HEADER:
+        raise Exception("Unsupported synth header: {}".format(header))
 
-    @staticmethod
-    def delete(name: str):
-        pass
+    return pickle.loads(data[1:])
 
-    @staticmethod
-    def exists(name: str):
-        pass
+def _minify(synth):
+    minified = []
+    for structure in synth["structures"]:
+        minified.append(
+            structure.replace("\n", "").replace("\t", "").replace("\"", "").replace("CREATE ", "") + "\n"
+        )
+    
+    return {
+        "structures": minified,
+    }
 
-    @staticmethod
-    def reflect(schemas: list[str], includes: list[str], excludes: list[str]):
-        pass
+def get_for_question(name: str):
+    return _minify(_load(name))["structures"]
+
+def create_cli():
+    db_config = db.get_active()
+
+    name = input("Enter a name for this synth: (default_synth)") or "default_synth"
+    if disk.exists(name):
+        raise Exception("Synth {} already exists".format(name))
+    
+    schemas = input("Enter schemas to reflect (comma separated): (public)") or "public"
+    schemas = [s.strip() for s in schemas.split(",")]
+    includes = input("Enter tables to include (comma separated): (all)") or None
+    if includes:
+        includes = [s.strip() for s in includes.split(",")]
+
+    synth = db.reflect(db_config, schemas, includes)
+    _save(name, synth)

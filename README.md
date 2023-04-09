@@ -10,6 +10,11 @@ demo: TBD
 
 TODO - add installation for openquery cli binary
 
+brew install openssl
+
+export LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
+
 ## Features
 
 - OpenAI language models
@@ -25,7 +30,9 @@ TODO - add installation for openquery cli binary
 
 - Profile
 - Synth
-- Language Module
+  - Structures like tables, views, indexes and foreign keys are synth'd
+  - Structures like CHECK constraints, table comments, and triggers are not synth'd.
+- Language Model
 
 ## Best Practices
 
@@ -53,7 +60,7 @@ How many total invoices do we have for john.doe@gmail.com?
 
 _GOOD_
 ```
-How many total invoices do we have for user with id 'ea916801-2987-4f29-aab5-f2b1061dc8f4'?
+How many total invoices do we have for user with id ea916801-2987-4f29-aab5-f2b1061dc8f4?
 ```
 
 openquery has built-in pii detection to prevent these kind of mistakes.
