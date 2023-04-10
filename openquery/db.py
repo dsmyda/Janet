@@ -87,7 +87,7 @@ def run_query(name: str, query: str):
     if sub_type != _REMOTE_TYPE:
         raise Exception("Cannot run query on non-remote database configurations")
 
-    if not config.default_run:
+    if not config["default_run"]:
         raise Exception("Database {} is not set to run queries by default".format(name))
     
     if not sql_ast.is_query(query):
@@ -99,7 +99,8 @@ def run_query(name: str, query: str):
     engine = create_engine(config["url"])
     with engine.connect() as conn:
         result = conn.execute(query_text)
-        return [row for row in result]
+        for row in result:
+            yield row._asdict()
 
 def _reflect_remote(config, schemas: list[str], includes: list[str] = None):
     engine = create_engine(config["url"])

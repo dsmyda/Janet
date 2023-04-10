@@ -14,7 +14,7 @@ _mutation_tokens = (
 
 def is_query(sql: str):
     tokens = Dialect.get_or_raise(None)().tokenize(sql)
-    return all(token.token_type not in mutation_tokens for token in tokens)
+    return all(token.token_type not in _mutation_tokens for token in tokens)
 
 def standardize(sql: str):
     ast = parse_one(sql)

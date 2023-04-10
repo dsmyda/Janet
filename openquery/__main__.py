@@ -7,6 +7,8 @@ import db
 import synth
 import disk
 import openai_model
+import sql_ast
+from tabulate import tabulate
 
 class OpenQueryCLI:
     def __init__(self):
@@ -19,7 +21,8 @@ The most commonly used openquery commands are:
     init        Initialize openquery
     create      Create a new resource (db, synth, model).
     delete      Delete a resource (db, synth, model).
-    use         Set active resources (db, synth, model). 
+    use         Set active resources (db, synth, model).
+    list        List resource names (db, synth, model).
     ask         Ask a question
 """)
         parser.add_argument(
@@ -102,8 +105,25 @@ The most commonly used openquery commands are:
         )
 
         args = parser.parse_args(sys.argv[2:])
-        print(args.question)
-        openai_model.ask(args.question)
+        queries = openai_model.ask(args.question)
+        name = db.get_active()
+        attempt = 0
+        for query in queries:
+            attempt += 1
+            try:
+                cursor = db.run_query(name, query.text)
+                print('\nResults: \n')
+                print(tabulate(cursor, headers="keys"))
+                
+                print("\nHere's the query I used to find the results (attempt #{}): \n\n{}\n".format(attempt, sql_ast.standardize(query.text)))
+                
+                correctness = input("Is this correct (y/n)? (y) ") or "y"
+                if correctness == "y":
+                    openai_model.save_training_data(args.question, query.text)
+                break
+            except Exception as e:
+                pass
+        
 
     def use(self):
         parser = argparse.ArgumentParser(
@@ -119,12 +139,20 @@ The most commonly used openquery commands are:
         args = parser.parse_args(sys.argv[2:3])
         data = disk.read_bytes(args.resource)
         header = data[0]
-        if header == db.HEADER:
+        if header == db.DB_HEADER:
             db.activate(args.resource)
-        elif header == synth.HEADER:
+        elif header == synth.SYNTH_HEADER:
             synth.activate(args.resource)
         else:
             print("Resource {} not found".format(args.resource))
+
+    def list(self):
+        parser = argparse.ArgumentParser(
+            prog="openquery list",
+            description="List resource names (db, synth, model)."
+        )
+
+        print('\n'.join(disk.list_all()))
 
 if __name__ == '__main__':
    OpenQueryCLI() 

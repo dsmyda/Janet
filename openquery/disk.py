@@ -34,6 +34,10 @@ def write_bytes(name: str, data: bytes):
         create(name)
     path.write_bytes(encrypted)
 
+def write_incremental(name: str, data: bytes):
+    with open(_get_path(name), "a") as f:
+        f.write(data)
+
 def delete(name: str):
     path = _get_path(name)
     path.unlink()
@@ -58,4 +62,4 @@ def get_resolved_name(name: str):
     return path.name
 
 def list_all():
-    return [f.name for f in _resource_path.iterdir() if f.is_file()]
+    return [f.name for f in _resource_path.iterdir() if f.is_file() and not f.name.startswith(".")]

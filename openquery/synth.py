@@ -36,7 +36,7 @@ def _minify(synth):
     minified = []
     for structure in synth["structures"]:
         minified.append(
-            structure.replace("\n", "").replace("\t", "").replace("\"", "").replace("CREATE ", "") + "\n"
+            structure.replace("\n", "").replace("\t", "").replace("\"", "")
         )
     
     return {
