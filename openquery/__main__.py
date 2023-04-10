@@ -8,6 +8,7 @@ import synth
 import disk
 import openai_model
 import sql_ast
+import question
 from tabulate import tabulate
 
 class OpenQueryCLI:
@@ -105,21 +106,30 @@ The most commonly used openquery commands are:
         )
 
         args = parser.parse_args(sys.argv[2:])
+        pii_labels = question.get_pii_labels(args.question)
+        if len(pii_labels) > 0:
+            print("\nWarning: This question may contain personally identifiable information. Please review the following labels (in brackets) \n")
+            print(question.highlight_pii(args.question, pii_labels))
+            print()
+            should_continue = input("Continue (y/n)? (n) ") or "n"
+            if should_continue == "n":
+                return
+
         queries = openai_model.ask(args.question)
         name = db.get_active()
         attempt = 0
         for query in queries:
             attempt += 1
             try:
-                cursor = db.run_query(name, query.text)
-                print('\nResults: \n')
-                print(tabulate(cursor, headers="keys"))
+                cursor = db.run_query(name, query.message.content)
+                print("\n" + tabulate(cursor, headers="keys"))
                 
-                print("\nHere's the query I used to find the results (attempt #{}): \n\n{}\n".format(attempt, sql_ast.standardize(query.text)))
+                print("\nHere's the query I ran (attempt #{}): \n\n{}\n".format(attempt, sql_ast.standardize(query.message.content)))
                 
                 correctness = input("Is this correct (y/n)? (y) ") or "y"
+                print()
                 if correctness == "y":
-                    openai_model.save_training_data(args.question, query.text)
+                    openai_model.save_training_data(args.question, query.message.content)
                 break
             except Exception as e:
                 pass
