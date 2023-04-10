@@ -27,6 +27,10 @@ export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
 - PII detection to prevent accidental data leaks (planned)
 - Offline support using a local .sql files (planned) 
 
+## How to use
+
+TODO
+
 ## How it works
 
 ### Concepts
@@ -36,10 +40,6 @@ export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
   - Structures like tables, views, indexes and foreign keys are synth'd
   - Structures like CHECK constraints, table comments, and triggers are not synth'd.
 - Language Model
-
-### How to use
-
-TODO
 
 ## Best Practices
 
