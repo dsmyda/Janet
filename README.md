@@ -37,6 +37,10 @@ export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
   - Structures like CHECK constraints, table comments, and triggers are not synth'd.
 - Language Model
 
+### How to use
+
+TODO
+
 ## Best Practices
 
 ### Least Privilege
