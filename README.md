@@ -25,7 +25,7 @@ export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
 - Automated schema introspection and query execution in 5 dialects
 - Encryption at rest
 - PII detection to prevent accidental data leaks (planned)
-- Offline support using a local .sql files (planned) 
+- Offline support using a local .sql file (planned) 
 
 ## How to use
 
