@@ -6,7 +6,7 @@ openquery is designed with information security in mind, supporting encryption a
 
 Still under development, but here's a rough preview!
 
-<img width="743" alt="Screenshot 2023-04-09 at 9 49 04 PM" src="https://user-images.githubusercontent.com/12688453/230811725-1fc793ed-555d-439c-9ee9-86359ae2e462.png">
+<img width="763" alt="Screenshot 2023-04-09 at 10 37 47 PM" src="https://user-images.githubusercontent.com/12688453/230814481-888ab622-e70b-4bd7-b8ad-b8cc628fd3ad.png">
 
 ## Installation
 
