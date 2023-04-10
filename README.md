@@ -17,18 +17,19 @@ export CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include"
 
 ## Features
 
-- OpenAI language models
+- OpenAI support
+- Automatic training set creation for fine-tuning models
 - Query parser supporting 20+ dialects, including Postgres, Presto, BigQuery and Snowflake
-- Online schema introspection and query execution in 5 dialects
-- Offline support using local .sql files
-- PII detection to prevent accidental data leaks
+- Automated schema introspection and query execution in 5 dialects
 - Encryption at rest
+- PII detection to prevent accidental data leaks (planned)
+- Offline support using a local .sql files (planned) 
 
 ## How it works
 
 ### Concepts
 
-- Profile
+- Database
 - Synth
   - Structures like tables, views, indexes and foreign keys are synth'd
   - Structures like CHECK constraints, table comments, and triggers are not synth'd.
