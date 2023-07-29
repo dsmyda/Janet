@@ -1,6 +1,6 @@
 # <img style="background:white; border-radius: 12px;" src="https://user-images.githubusercontent.com/12688453/229330427-fc12979a-443d-43c7-8e3f-2938cd5e3b78.png"  width="24" height="24"> openquery
 
-openquery is an open source automated descriptive analytics tool for SQL databases. It works by translating natural language queries into SQL, using your database schema to generate viable solutions. You can opt-in to automatically run those SQL queries for a nice end-to-end experience.
+openquery is an automated descriptive analytics tool for SQL databases. It works by translating natural language queries into SQL, using your database schema to generate viable solutions. You can opt-in to automatically run those SQL queries for a nice end-to-end experience.
 
 openquery is designed with information security in mind, supporting encryption at rest, automated PII detection, guards against malicious database statements, and more.
 
